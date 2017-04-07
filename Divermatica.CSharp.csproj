@@ -76,9 +76,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\BarScript.cs" />
+    <Compile Include="Assets\scripts\CountdownTimer.cs" />
+    <Compile Include="Assets\scripts\EnemyScript.cs" />
+    <Compile Include="Assets\scripts\FadeScript.cs" />
+    <Compile Include="Assets\scripts\GameManager.cs" />
     <Compile Include="Assets\scripts\Missile.cs" />
     <Compile Include="Assets\scripts\MissileSpawner.cs" />
+    <Compile Include="Assets\scripts\PauseScript.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />
+    <Compile Include="Assets\scripts\QuestionGenerator.cs" />
+    <Compile Include="Assets\scripts\SceneManagerScript.cs" />
     <Compile Include="Assets\scripts\Scroll.cs" />
     <Compile Include="Assets\scripts\Slime.cs" />
     <Compile Include="Assets\scripts\SlimeSpawner.cs" />

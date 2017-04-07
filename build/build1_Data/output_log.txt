@@ -18,13 +18,39 @@ Platform assembly: D:\PROJETOS\Divermatica\build\build1_Data\Managed\UnityEngine
 Loading D:\PROJETOS\Divermatica\build\build1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\PROJETOS\Divermatica\build\build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading D:\PROJETOS\Divermatica\build\build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.032 seconds
+- Completed reload, in  0.027 seconds
 Platform assembly: D:\PROJETOS\Divermatica\build\build1_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\PROJETOS\Divermatica\build\build1_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 2806x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 2.682988 ms
+UnloadTime: 1.318402 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 117.204010 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 605.
+Total: 7.086216 ms (FindLiveObjects: 0.042630 ms CreateObjectMapping: 0.024473 ms MarkObjects: 7.004901 ms  DeleteObjects: 0.013026 ms)
+
+escape canvas
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+escape canvas
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+escape canvas
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+escape canvas
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+escape canvas
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 804 -> priority: 1 
+  Thread -> id: 1570 -> priority: 1 

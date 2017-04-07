@@ -18,7 +18,7 @@ public class SlimeSpawner : MonoBehaviour {
 
     void Spawn()
     {
-        int randomMissile = Random.Range(0, 4);
+       
         Instantiate(Slime, new Vector3(-4, spawnPoints[Random.Range(0,3)], 0), Quaternion.identity);
     }
 

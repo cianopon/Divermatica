@@ -21,4 +21,6 @@ public class Slime : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+
+  
 }

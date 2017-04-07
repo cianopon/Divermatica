@@ -36,18 +36,17 @@ public class PlayerController : MonoBehaviour {
         float horizontal = Input.GetAxis("Horizontal");
         HandleMovement(horizontal,vertical);
 
-        if (Input.GetKeyDown(KeyCode.Q))
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {    
+        if (other.tag.Equals("SlimeProjectile") || other.tag.Equals("Missile"))
         {
             health.CurrentVal -= 10;
+            Destroy(other.gameObject);
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            health.CurrentVal += 10;
-        }
-
-
     }
+
 
 
 
