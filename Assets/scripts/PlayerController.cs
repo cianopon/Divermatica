@@ -11,10 +11,22 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Stat health;
 
+    public Stat Health
+    {
+        get
+        {
+            return health;
+        }
+
+        set
+        {
+            health = value;
+        }
+    }
 
     private void Awake()
     {
-        health.Initialize();
+        Health.Initialize();
     }
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
@@ -42,9 +54,14 @@ public class PlayerController : MonoBehaviour {
     {    
         if (other.tag.Equals("SlimeProjectile") || other.tag.Equals("Missile"))
         {
-            health.CurrentVal -= 10;
+            GotDamage(10); 
             Destroy(other.gameObject);
         }
+    }
+
+    public void GotDamage(int damage)
+    {
+        Health.CurrentVal -= damage;
     }
 
 

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -15,23 +17,25 @@ public class GameManager : MonoBehaviour {
 	
 
 	void Update () {
-		if (Input.GetKeyDown("escape"))
-        {
-            if (paused)
-            {
-                Time.timeScale = 1;
-                paused = false;
-               
-            } 
-            else
-            {
-             
-                Time.timeScale = 0;
-                paused = true;
-            }
-            
-        }
+
 	}
 
-  
+    public void ExitGame()
+    {
+        Application.Quit(); 
+    }
+
+    public void NewGame()
+    {
+        SceneManager.LoadScene("School");
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+
+
+
 }

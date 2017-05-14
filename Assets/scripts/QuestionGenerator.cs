@@ -1,89 +1,266 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class QuestionGenerator : MonoBehaviour
 {
-
-    enum Operators { ADD, SUB, MULT, DIV };
-
-    [SerializeField]
-    private Text textQuestion,textButton1,textButton2,textButton3;
-
-    private int CorrectAnswer = 0, randomAnswer1 = 0, randomAnswer2 = 0;
-    private int qstElement1, qstElement2, qstElement3;
-    private string[] operadoresArray = { "+", "-", "*", "/" };
-    [SerializeField]
-    private EnemyScript enemyScript;
-    [SerializeField]
-    private CountdownTimer countDownTimer;
-
   
+    private Question currentQuestion;
+    private QuestionLevel qstLevel;
 
-    void GenerateQuestion()
+    private Question.Operators currentOperator = Question.Operators.SUM;
+    private Text[] arrayTextButtons;
+    [SerializeField]
+    private Text textQuestion, textButton1, textButton2, textButton3;
+    [SerializeField]
+    private EnemyController enemyController;
+    [SerializeField]
+    private PlayerController player;
+    [SerializeField]
+    private ButtonsManager buttonsManager;
+    [SerializeField]
+    private GameObject HUDCanvas, qstCanvas, gameOverCanvas, GameWonCanvas;
+    [SerializeField]
+    private Motion[] motions;
+    private CountdownTimer countDownTimer;
+    private int lastCorrectAwnserIndex = -1;
+    private int lastCorrectAnswer = -1;
+    private bool isGameOver;
+
+    public QuestionLevel QstLevel
     {
-        Operators opr = (Operators)Random.Range(0, 2);
-        qstElement1 = Random.Range(1, 20);
-        qstElement2 = Random.Range(1, 20);
-        switch ((int)opr)
+        get
         {
-            case 0: CorrectAnswer = qstElement1 + qstElement2; break;
-            case 1: CorrectAnswer = qstElement1 - qstElement2; break;
-            case 2: CorrectAnswer = qstElement1 * qstElement2; break;
-            case 3: CorrectAnswer = qstElement1 / qstElement2; break;
+            return qstLevel;
         }
 
-        do
+        set
         {
-            randomAnswer1 = RandomQstGen(opr);
-        } while (CorrectAnswer == randomAnswer1);
-
-        do
-        {
-            randomAnswer2 = RandomQstGen(opr);
-        } while (!(randomAnswer2 != CorrectAnswer && randomAnswer2 != randomAnswer1));
-
-        textButton1.text = CorrectAnswer.ToString();
-        textButton2.text = randomAnswer1.ToString();
-        textButton3.text = randomAnswer2.ToString();
-        textQuestion.text = qstElement1 + " " + operadoresArray[(int)opr] + " " + qstElement2 + " = ";
-        countDownTimer.startCountDown();
-       
-    }
-
-    private int RandomQstGen(Operators opr)
-    {
-        int randomQst = 0;
-        switch ((int)opr)
-        {
-            case 0: randomQst = Random.Range(1, 20) + Random.Range(1, 20); break;
-            case 1: randomQst = Random.Range(1, 20) - Random.Range(1, 20); break;
-            case 2: randomQst = Random.Range(1, 20) * Random.Range(1, 20); break;
-            case 3: randomQst = Random.Range(1, 20) / Random.Range(1, 20); break;
+            qstLevel = value;
         }
-        return randomQst;
     }
 
-   public void ProcessAnswer(Button button)
+    private Question CurrentQuestion
     {
-        string answerButtonPressed = button.GetComponentInChildren<Text>().text;
-        if (CorrectAnswer.ToString().Equals(answerButtonPressed))
+        get
         {
-            enemyScript.Health.CurrentVal -= 25;
+            return currentQuestion;
         }
-        GenerateQuestion();
-    }
 
+        set
+        {
+            currentQuestion = value;
+        }
+    }
  
 
     void Start()
     {
-        GenerateQuestion();
+
+        Initialize();
+        GenerateNewQuestion();
+
+    }
+
+    void Initialize()
+    {
+        
+        QuestionLevel.LevelEnum E_level = QuestionLevel.LevelEnum.SUM;
+        QuestionLevel.SubLevelEnum E_SubLevel = QuestionLevel.SubLevelEnum.EASY;
+        countDownTimer = GetComponentInParent<CountdownTimer>();
+        arrayTextButtons = new Text[] { textButton1,textButton2,textButton3};
+        QstLevel = new QuestionLevel(E_level,E_SubLevel);
+        enemyController.QstLevel = QstLevel;
+    }
+
+
+    void GenerateNewQuestion()
+    {
+
+        switch (currentOperator)
+        {
+            case Question.Operators.SUM:
+                CurrentQuestion = new SumQuestion(QstLevel);
+                break;
+            case Question.Operators.SUB:
+                CurrentQuestion = new SubtractQuestion(QstLevel);
+                break;
+            case Question.Operators.MULT:
+                CurrentQuestion = new MultiplyQuestion(QstLevel);
+                break;
+            case Question.Operators.DIV:
+                CurrentQuestion = new DivideQuestion(QstLevel);
+                break;
+            default:
+                CurrentQuestion = null;
+                break;
+        }
+
+        CurrentQuestion.Operator1 =  currentOperator;
+        CurrentQuestion.LastAnswer = lastCorrectAnswer;
+        CurrentQuestion.GenerateQuestion();
+        lastCorrectAnswer = CurrentQuestion.CorrectAnswer;
+        setQuestionsOnTextButtons();   
+
+        if (CurrentQuestion.QstLevel.SubLevel == QuestionLevel.SubLevelEnum.BOSS)
+        {
+            countDownTimer.Restart(10);                        
+        }
+        else
+        {
+            countDownTimer.Restart(5);
+        }
+        
+
+
+    }
+
+
+    private void setQuestionsOnTextButtons()
+    {
+        int randomIndex = UnityEngine.Random.Range(0,3);
+
+        if (lastCorrectAwnserIndex == randomIndex)
+        {
+            do
+            {
+                randomIndex = UnityEngine.Random.Range(0, 2);
+            } while (randomIndex == lastCorrectAwnserIndex);
+            lastCorrectAwnserIndex = randomIndex;
+        }
+        else
+            lastCorrectAwnserIndex = randomIndex;
+
+        int randomAux = -1;
+        arrayTextButtons[randomIndex].text = CurrentQuestion.CorrectAnswer.ToString();
+  
+        for (int i = 0; i<arrayTextButtons.Length; i++)
+        {
+        
+            if (i == randomIndex)
+            {
+                continue;
+            }
+            else
+            {
+                if (randomAux == -1)
+                {
+                    arrayTextButtons[i].text = CurrentQuestion.RandomAnswer1.ToString();
+                    randomAux = i;
+                }
+                else
+                {
+                    arrayTextButtons[i].text = CurrentQuestion.RandomAnswer2.ToString();
+                }
+            }            
+        
+        }
+
+        textQuestion.text = CurrentQuestion.QuestionToString();
+    }
+
+    public void ProcessAnswerMouse(Button button)
+    {
+        string answerButtonPressed = button.GetComponentInChildren<Text>().text;
+        if (CurrentQuestion.CorrectAnswer.ToString().Equals(answerButtonPressed))
+        {
+            enemyController.GotDamage(25);
+
+            if (enemyController.Health.CurrentVal <= 0)
+            {
+                if (enemyController.QstLevel.SubLevel == QuestionLevel.SubLevelEnum.BOSS)
+                {
+                    if (CurrentQuestion.QstLevel.Level == QuestionLevel.LevelEnum.DIVIDE)
+                    {
+                        GameWon();
+                        return;
+                    }
+                    else
+                    {
+                        IncreaseOperatorIndex();
+                    }                    
+                }
+                enemyController.ChangeEnemy();                
+            }
+        }
+        else
+        {
+            player.GotDamage(10);
+        }
+        
+        GenerateNewQuestion();
+        
+    }
+
+    void IncreaseOperatorIndex()
+    {
+        currentOperator++;
+    }
+
+ 
+    void IncreaseLevel()
+    {
+        QstLevel.IncreaseLevel();
+        
+    }
+
+    void CheckCounterTimeFinished()
+    {
+        if(countDownTimer != null)
+        {
+            if (countDownTimer.IsFinished)
+            {
+                player.GotDamage(10);
+                GenerateNewQuestion();
+            }
+        }
+        
+    }
+
+    public void CheckPlayersLife()
+    {
+        if (player.Health.CurrentVal <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    private void GameOver()
+    {
+        isGameOver = true;
+        HUDCanvas.SetActive(false);
+        qstCanvas.SetActive(false);
+        DestroyGameElements();
+        gameOverCanvas.SetActive(true);
+
+    }
+
+    private void GameWon()
+    {
+        isGameOver = true;
+        HUDCanvas.SetActive(false);
+        qstCanvas.SetActive(false);
+        DestroyGameElements();
+        GameWonCanvas.SetActive(true);
+    }
+
+    private void DestroyGameElements()
+    {
+        Destroy(player.gameObject);
+        enemyController.Destroy();
+        Destroy(enemyController.gameObject);
     }
 
     void Update()
     {
+        if (!isGameOver)
+        {
+            CheckCounterTimeFinished();
+            buttonsManager.CheckKeysPressed();
+            CheckPlayersLife();
+        }
         
     }
 

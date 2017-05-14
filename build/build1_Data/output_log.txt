@@ -18,39 +18,23 @@ Platform assembly: D:\PROJETOS\Divermatica\build\build1_Data\Managed\UnityEngine
 Loading D:\PROJETOS\Divermatica\build\build1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\PROJETOS\Divermatica\build\build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading D:\PROJETOS\Divermatica\build\build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.027 seconds
+- Completed reload, in  0.030 seconds
 Platform assembly: D:\PROJETOS\Divermatica\build\build1_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\PROJETOS\Divermatica\build\build1_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 2806x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.318402 ms
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 117.204010 ms
+UnloadTime: 3.166929 ms
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 5.505711 ms
 
-Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 605.
-Total: 7.086216 ms (FindLiveObjects: 0.042630 ms CreateObjectMapping: 0.024473 ms MarkObjects: 7.004901 ms  DeleteObjects: 0.013026 ms)
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 742.
+Total: 0.416046 ms (FindLiveObjects: 0.039078 ms CreateObjectMapping: 0.031183 ms MarkObjects: 0.326048 ms  DeleteObjects: 0.019736 ms)
 
-escape canvas
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-escape canvas
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-escape canvas
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-escape canvas
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-escape canvas
+Too many sprite tiles on Image "Panel". The tile size will be increased. To remove the limit on the number of tiles, convert the Sprite to an Advanced texture, remove the borders, clear the Packing tag and set the Wrap mode to Repeat.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1570 -> priority: 1 
+  Thread -> id: 284 -> priority: 1 

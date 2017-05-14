@@ -9,7 +9,13 @@ public class SlimeSpawner : MonoBehaviour {
     [SerializeField]
     private float delay;
     private float [] spawnPoints = {-1.50f,-3,-4.20f};
+    private GameObject currentSlime;
 
+    public void Destroy ()
+    {
+        Destroy(currentSlime);
+        Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -18,8 +24,7 @@ public class SlimeSpawner : MonoBehaviour {
 
     void Spawn()
     {
-       
-        Instantiate(Slime, new Vector3(-4, spawnPoints[Random.Range(0,3)], 0), Quaternion.identity);
+        currentSlime = Instantiate(Slime, new Vector3(-4, spawnPoints[Random.Range(0, 3)], 0), Quaternion.identity);
     }
 
 }

@@ -55,11 +55,24 @@ public class CountdownTimer : MonoBehaviour {
         }
     }
 
+    public float DefaultTimeValue
+    {
+        get
+        {
+            return defaultTimeValue;
+        }
+
+        set
+        {
+            defaultTimeValue = value;
+        }
+    }
+
     void Start () {
-        if (defaultTimeValue == 0)
-            defaultTimeValue = 5f;
-        timer = defaultTimeValue;
-        resetTimer();
+        if (DefaultTimeValue == 0)
+            DefaultTimeValue = 5f;
+        timer = DefaultTimeValue;
+
 	}
 	
 
@@ -82,24 +95,34 @@ public class CountdownTimer : MonoBehaviour {
         
 	}
 
-    void resetTimer()
+    public void ResetTimer()
     {
-        timer = defaultTimeValue;
+        timer = DefaultTimeValue;
         IsCounting = false;
         IsFinished = false;
     }
 
-  public  void startCountDown()
+    public void StartCountDown()
     {
         IsCounting = true;
+    } 
+
+    public void Restart()
+    {
+        ResetTimer();
+        StartCountDown();
     }
 
-
- 
+    public void Restart(int newTimeValue)
+    {
+        DefaultTimeValue = newTimeValue;
+        ResetTimer();
+        StartCountDown();
+    }
 
     private void HandleBar()
     {
-        content.fillAmount = Map(fillAmount,0,defaultTimeValue,0,1);
+        content.fillAmount = Map(fillAmount,0,DefaultTimeValue,0,1);
         valueText.text = fillAmount.ToString("0.00");
 
     }
